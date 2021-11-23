@@ -19,20 +19,17 @@
             	<li>
             		<a href="./mypage?f=studentNum&v=201701">mypage</a>
 	            </li>
-                <li><a>로그인</a></li>
+        		<c:if test="${isLogin == true}">
+           			<li><a href="./logout">로그아웃</a></li>
+				</c:if>
+				<c:if test="${islogin == false}">
+           			<li><a href="./login">로그인</a></li>
+				</c:if>
                 <li><a>회원가입</a></li>
-            </ul>
+            </ul> 
 		</nav>
 		
-		
-		<form action="./mypage">
-        	<fieldset>
-	            <legend>과정검색필드</legend>
-	            <label>과정검색</label>
-	            <input type="text" name="f" value="asd" />
-	            <input type="submit" value="검색" />
-        	</fieldset>
-        </form>
+	
 	</main>
 </body>
 </html>
