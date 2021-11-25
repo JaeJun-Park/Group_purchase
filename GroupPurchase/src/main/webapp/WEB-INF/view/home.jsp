@@ -12,6 +12,7 @@
 </head>
 <body>
 	<h1>mainpage</h1>
+	<h1>${isLogin}</h1>
 	<main>
 		<nav id="acount-menu">
 			<h1 class="hidden">회원메뉴</h1>
@@ -19,12 +20,14 @@
             	<li>
             		<a href="./mypage?f=studentNum&v=201701">mypage</a>
 	            </li>
-        		<c:if test="${isLogin == true}">
-           			<li><a href="./logout">로그아웃</a></li>
-				</c:if>
-				<c:if test="${islogin == false}">
-           			<li><a href="./login">로그인</a></li>
-				</c:if>
+	            <c:choose>
+	            	<c:when test="${isLogin}">
+	            		<li><a href="./login?c=out">로그아웃</a></li>
+	            	</c:when>
+	            	<c:when test="${!islogin}">
+	            		<li><a href="./login">로그인</a></li>
+	            	</c:when>
+	            </c:choose>
                 <li><a>회원가입</a></li>
             </ul> 
 		</nav>

@@ -39,9 +39,10 @@ public class LoginController extends HttpServlet{
 		if(stu != null)
 		{
 			System.out.println("로그인성공");
-			HttpSession session = req.getSession();
+			HttpSession session = req.getSession();		
 			session.setAttribute("isLogin", true);
 			session.setAttribute("loginNum", stu.getStudentNum());
+			session.setAttribute("student", stu);
 			resp.sendRedirect("./home");
 		}
 		else
@@ -55,6 +56,19 @@ public class LoginController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		req.getRequestDispatcher("/WEB-INF/view/student/login.jsp").forward(req, resp);
+		String log = req.getParameter("c");
+		
+		if(log == null)
+		{
+			req.getRequestDispatcher("/WEB-INF/view/student/login.jsp").forward(req, resp);
+		}
+		else if(log.equals("out"))
+		{
+			HttpSession  session = req.getSession();
+			session.setAttribute("isLogin", false);
+			session.setAttribute("loginNum", "");
+			session.setAttribute("student", null);
+			resp.sendRedirect("./home");
+		}
 	}
 }
