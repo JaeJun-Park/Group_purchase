@@ -24,14 +24,14 @@ public class StudentService
 
 			if(rs.next())
 			{
-				String sid = rs.getString("studentnum");
+				String sNum = rs.getString("studentnum");
 				String name = rs.getString("name");
 				String id = rs.getString("id");
 				String pw = rs.getString("password");
 				float cred = rs.getFloat("credibility");
 				
 				stu = new Student(
-						sid,
+						sNum,
 						name,
 						id,
 						pw,
@@ -54,9 +54,40 @@ public class StudentService
 	
 	public Student login(String id, String pw)
 	{
-		
-		
-		return null;
+		Student stu = null;
+		String sql = "select * from Student where ID = ? AND Password = ?";
+		System.out.println(sql);
+		try
+		{
+			Connection conn = connectWithDB();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, id);
+			st.setString(2, pw);
+			ResultSet rs = st.executeQuery();
+
+			if(rs.next())
+			{
+				String sNum = rs.getString("studentnum");
+				String name = rs.getString("name");
+				String sId = rs.getString("id");
+				String sPw = rs.getString("password");
+				float cred = rs.getFloat("credibility");
+				
+				stu = new Student(
+						sNum,
+						name,
+						sId,
+						sPw,
+						cred
+					);
+			}
+			rs.close();
+			st.close();
+			conn.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return stu;
 	}
 	
 	private static Connection connectWithDB()

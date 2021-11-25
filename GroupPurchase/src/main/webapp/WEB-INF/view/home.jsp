@@ -12,6 +12,7 @@
 </head>
 <body>
 	<h1>mainpage</h1>
+	<h1>${isLogin}</h1>
 	<main>
 		<nav id="acount-menu">
 			<h1 class="hidden">회원메뉴</h1>
@@ -19,20 +20,19 @@
             	<li>
             		<a href="./mypage?f=studentNum&v=201701">mypage</a>
 	            </li>
-                <li><a>로그인</a></li>
+	            <c:choose>
+	            	<c:when test="${isLogin}">
+	            		<li><a href="./login?c=out">로그아웃</a></li>
+	            	</c:when>
+	            	<c:when test="${!islogin}">
+	            		<li><a href="./login">로그인</a></li>
+	            	</c:when>
+	            </c:choose>
                 <li><a>회원가입</a></li>
-            </ul>
+            </ul> 
 		</nav>
 		
-		
-		<form action="./mypage">
-        	<fieldset>
-	            <legend>과정검색필드</legend>
-	            <label>과정검색</label>
-	            <input type="text" name="f" value="asd" />
-	            <input type="submit" value="검색" />
-        	</fieldset>
-        </form>
+	
 	</main>
 </body>
 </html>

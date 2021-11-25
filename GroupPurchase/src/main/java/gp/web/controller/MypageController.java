@@ -17,8 +17,16 @@ public class MypageController extends HttpServlet
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		String field = req.getParameter("f");
-		String value = req.getParameter("v");
+		String fieldT = req.getParameter("f");
+		String valueT = req.getParameter("v");
+		
+		String field = "studentNum";
+		if(fieldT != null && !fieldT.equals(""))
+			field = fieldT;
+		
+		String value = "";
+		if(valueT != null && !valueT.equals(""))
+			value = valueT;
 		
 		
 		StudentService serv = new StudentService();
