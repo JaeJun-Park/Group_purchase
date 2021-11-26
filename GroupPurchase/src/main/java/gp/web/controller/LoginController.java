@@ -17,7 +17,6 @@ public class LoginController extends HttpServlet{
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		System.out.println("login");
 		String idT = req.getParameter("id");
 		String pwT = req.getParameter("pw");
 	
@@ -29,9 +28,6 @@ public class LoginController extends HttpServlet{
 		if(pwT != null && !pwT.equals(""))
 			pw = pwT;
 		
-		System.out.println(id);
-		System.out.println(pw);
-		
 		StudentService serv = new StudentService();
 		Student stu = new Student();
 		
@@ -39,7 +35,6 @@ public class LoginController extends HttpServlet{
 		
 		if(stu != null)
 		{
-			System.out.println("로그인성공");
 			HttpSession session = req.getSession();		
 			session.setAttribute("isLogin", true);
 			session.setAttribute("loginNum", stu.getStudentNum());
@@ -48,8 +43,9 @@ public class LoginController extends HttpServlet{
 		}
 		else
 		{
-			System.out.println("로그인실패");
-			req.getRequestDispatcher("/WEB-INF/view/student/login.jsp").forward(req, resp);
+			req.getSession().setAttribute("messageType", "오류 메시지");
+			req.getSession().setAttribute("messageContent", "아이디와 비밀번호가 일치하지 않습니다.");
+			resp.sendRedirect("./login");
 		}
 		
 	}

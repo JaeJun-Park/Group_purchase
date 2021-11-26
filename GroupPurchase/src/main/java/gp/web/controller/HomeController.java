@@ -23,11 +23,7 @@ public class HomeController extends HttpServlet{
 			session.setAttribute("student", null);
 		}
 		boolean isLogin = (boolean) session.getAttribute("isLogin");
-		
-		System.out.println(isLogin);
-		
 		req.setAttribute("isLogin", isLogin);
-		
 		req.getRequestDispatcher("/WEB-INF/view/home.jsp").forward(req, resp);
 	}
 }

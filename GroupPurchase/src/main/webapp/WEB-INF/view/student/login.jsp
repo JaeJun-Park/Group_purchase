@@ -19,14 +19,35 @@
 </head>
 <body>
 	<main>
-		<form action="./login" method="post">
-        	<fieldset>
-	            <legend>로그인</legend>
-	            <input type="text" name="id" placeholder="아이디(ID)"><br>
-	            <input type="password" name="pw" placeholder="패스워드(PW)"><br>
-	            <button type="submit">로그인</button>
-        	</fieldset>
-        </form>
+		<div class="container">
+			<form action="./login" method="post">
+				<table class="table table-borded table-hover" style="text-align: center; border: 1px solid #dddddd">
+					<thead>
+						<tr>
+							<th colspan="3"><h4>로그인</h4></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="width: 120px;"><h5>아이디</h5></td>
+							<td	colspan="2"><input class="form-control" type="text" id="id" name="id" maxlength="20" placeholder="아이디(ID)"></td>
+						</tr>
+						<tr>
+							<td style="width: 120px;"><h5>비밀번호</h5></td>
+							<td colspan="2"><input class="form-control" type="password" id="pw" name="pw" maxlength="20" placeholder="패스워드(PW)"></td>
+						</tr>		
+						<tr>
+							<td style="text-align: right" colspan="3"><h5 style="color: red;"></h5><input class ="btn btn-primary pull-right" type="submit" value="로그인"></td>
+						</tr>					
+					</tbody>	
+				</table>
+			</form>
+			<form method="get" action="./home">
+				<div class="container">
+					<h5 style="color: red;"></h5><input class ="btn btn-primary pull-right" type="submit" value="홈으로">
+				</div>
+			</form>
+		</div>
 	</main>
 	
 	

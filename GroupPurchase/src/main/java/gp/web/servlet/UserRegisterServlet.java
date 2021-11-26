@@ -37,7 +37,6 @@ public class UserRegisterServlet extends HttpServlet{
 			return;
 		}
 		int result = new StudentService().register(num, name, id, pw1);
-		System.out.println(result);
 		if(result == 1)
 		{
 			req.getSession().setAttribute("messageType", "성공 메시지");

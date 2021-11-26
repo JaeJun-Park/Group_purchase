@@ -77,7 +77,6 @@ public class StudentService
 	{
 		Student stu = null;
 		String sql = "select * from Student where ID = ? AND Password = ?";
-		System.out.println(sql);
 		
 		try
 		{
