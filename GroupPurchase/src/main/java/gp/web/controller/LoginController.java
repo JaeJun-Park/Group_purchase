@@ -17,6 +17,7 @@ public class LoginController extends HttpServlet{
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		System.out.println("login");
 		String idT = req.getParameter("id");
 		String pwT = req.getParameter("pw");
 	

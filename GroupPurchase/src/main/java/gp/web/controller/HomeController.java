@@ -16,7 +16,7 @@ public class HomeController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		HttpSession session = req.getSession();
-		if(session.isNew())
+		if(session.getAttribute("isLogin") == null)
 		{
 			session.setAttribute("isLogin", false);
 			session.setAttribute("loginNum", "");
