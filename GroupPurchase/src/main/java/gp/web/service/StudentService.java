@@ -10,6 +10,32 @@ import gp.web.entity.Student;
 
 public class StudentService 
 {
+	private Connection conn;
+	
+	private void connectWithDB()
+	{
+		conn = null;
+		String serverIP = "localhost";
+		String strSID = "orcl";
+		String portNum = "1521";
+		String user = "GroupPurchase";
+		String pass = "1234";
+		String url = "jdbc:oracle:thin:@" + serverIP +":"+portNum+":"+strSID;
+		
+		try
+		{
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection(url, user, pass);
+		}
+		catch(ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public Student getStudent(String field, String val)
 	{
 		Student stu = null;
@@ -17,7 +43,7 @@ public class StudentService
 		System.out.println(sql);
 		try
 		{
-			Connection conn = connectWithDB();
+			connectWithDB();
 			PreparedStatement st = conn.prepareStatement(sql);
 			st.setString(1, val);
 			ResultSet rs = st.executeQuery();
@@ -47,19 +73,15 @@ public class StudentService
 		return stu;
 	}
 	
-	public void signUp(String studentNum, String name, String id, String pw)
-	{
-		
-	}
-	
 	public Student login(String id, String pw)
 	{
 		Student stu = null;
 		String sql = "select * from Student where ID = ? AND Password = ?";
 		System.out.println(sql);
+		
 		try
 		{
-			Connection conn = connectWithDB();
+			connectWithDB();
 			PreparedStatement st = conn.prepareStatement(sql);
 			st.setString(1, id);
 			st.setString(2, pw);
@@ -90,28 +112,102 @@ public class StudentService
 		return stu;
 	}
 	
-	private static Connection connectWithDB()
+	public int IDCheck(String userID)
 	{
-		Connection conn = null;
-		String serverIP = "localhost";
-		String strSID = "orcl";
-		String portNum = "1521";
-		String user = "GroupPurchase";
-		String pass = "1234";
-		String url = "jdbc:oracle:thin:@" + serverIP +":"+portNum+":"+strSID;
-		
-		try
-		{
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conn = DriverManager.getConnection(url, user, pass);
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "Select * from STUDENT where ID = ?";
+		try {
+			connectWithDB();
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1,  userID);
+			rs = pstmt.executeQuery();
+			if(rs.next() || userID.equals(""))
+			{
+				return 0; //이미존제
+			}
+			else
+			{
+				return 1; //가입가능
+			}
 		}
-		catch(ClassNotFoundException e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
-		} catch (SQLException e) 
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return -1; //디비오류
+	}
+	public int NumCheck(String sNum)
+	{
+		if(sNum.length() != 6 || !sNum.matches("20(.*)"))
+			return 0; //잘못된 입력
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "Select * from STUDENT where StudentNum = ?";
+		try {
+			connectWithDB();
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1,  sNum);
+			rs = pstmt.executeQuery();
+			if(rs.next() || sNum.equals(""))
+			{
+				return 0; //이미존재
+			}
+			else
+			{
+				return 1; //가입가능
+			}
+		}
+		catch(Exception e)
 		{
 			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
-		return conn;
+		return -1; //디비오류
+	}
+	public int register(String sNum, String name, String id, String pw)
+	{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "INSERT INTO STUDENT VALUES (?, ?, ?, ?, ?)";
+		try {
+			connectWithDB();
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1,  sNum);
+			pstmt.setString(2,  name);
+			pstmt.setString(3,  id);
+			pstmt.setString(4,  pw);
+			pstmt.setFloat(5, 0.0f);
+			int count = pstmt.executeUpdate();
+			return count;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return -1; //디비오류
 	}
 }
