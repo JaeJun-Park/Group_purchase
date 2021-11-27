@@ -30,7 +30,6 @@ public class LoginController extends HttpServlet{
 		
 		StudentService serv = new StudentService();
 		Student stu = new Student();
-		
 		stu = serv.login(id, pw);
 		
 		if(stu != null)

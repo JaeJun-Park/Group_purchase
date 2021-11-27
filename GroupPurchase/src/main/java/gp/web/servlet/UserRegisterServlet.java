@@ -41,7 +41,7 @@ public class UserRegisterServlet extends HttpServlet{
 		{
 			req.getSession().setAttribute("messageType", "성공 메시지");
 			req.getSession().setAttribute("messageContent", "회원가입에 성공했습니다.");
-			resp.sendRedirect("./signup");
+			resp.sendRedirect("./home");
 			return;
 		}
 		else

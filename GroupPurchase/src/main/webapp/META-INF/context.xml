@@ -1,0 +1,17 @@
+<Context path="/GroupPurchase" docBase="www">
+<Resource
+	name="jdbc/GroupPurchase"
+	auth="Container"
+	type="javax.sql.DataSource"
+	driverClassName="oracle.jdbc.driver.OracleDriver"
+	loginTimeout="10"
+	validationQuery="SELECT 1 FROM DUAL"
+	maxWait="5000"
+	username="GroupPurchase"
+	password="1234"
+	testOnBorrow="true"
+	url="jdbc:oracle:thin:@localhost:1521:orcl"/>
+<ResourceLink type="javax.sql.data.DataSource"
+	name="jdbc/GroupPurchase"
+	global="jdbc/GroupPurchase/"/>
+</Context>

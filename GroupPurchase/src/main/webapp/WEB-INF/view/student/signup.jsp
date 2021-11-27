@@ -107,7 +107,6 @@
 		</form>
 	</div>
 	<% 
-
 		String messageContent = null;
 		if(session.getAttribute("messageContent") != null)
 		{
