@@ -17,4 +17,31 @@
   	<servlet-name>UserRegisterServlet</servlet-name>
   	<url-pattern>/userRegister</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ChatSubmitServlet</servlet-name>
+  	<servlet-class>gp.web.servlet.ChatSubmitServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ChatSubmitServlet</servlet-name>
+  	<url-pattern>/chatSubmitServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ChatListServlet</servlet-name>
+  	<servlet-class>gp.web.servlet.ChatListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ChatListServlet</servlet-name>
+  	<url-pattern>/chatListServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ChatRoomListServlet</servlet-name>
+  	<servlet-class>gp.web.servlet.ChatRoomListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ChatRoomListServlet</servlet-name>
+  	<url-pattern>/chatRoomList</url-pattern>
+  </servlet-mapping>
 </web-app>

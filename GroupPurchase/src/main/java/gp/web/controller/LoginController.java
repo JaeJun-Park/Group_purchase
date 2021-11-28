@@ -38,6 +38,8 @@ public class LoginController extends HttpServlet{
 			session.setAttribute("isLogin", true);
 			session.setAttribute("loginNum", stu.getStudentNum());
 			session.setAttribute("student", stu);
+			session.setAttribute("messageType", "성공 메시지");
+			session.setAttribute("messageContent", "로그인에 성공했습니다.");
 			resp.sendRedirect("./home");
 		}
 		else
@@ -56,7 +58,15 @@ public class LoginController extends HttpServlet{
 		
 		if(log == null)
 		{
-			req.getRequestDispatcher("/WEB-INF/view/student/login.jsp").forward(req, resp);
+			if(req.getSession().getAttribute("student") != null)
+			{
+				req.getSession().setAttribute("messageType", "오류 메시지");
+				req.getSession().setAttribute("messageContent", "현재 로그인이 되어있는 상태입니다.");
+				resp.sendRedirect("./home");
+				return;
+			}
+			else
+				req.getRequestDispatcher("/WEB-INF/view/student/login.jsp").forward(req, resp);
 		}
 		else if(log.equals("out"))
 		{
@@ -65,6 +75,7 @@ public class LoginController extends HttpServlet{
 			session.setAttribute("loginNum", "");
 			session.setAttribute("student", null);
 			resp.sendRedirect("./home");
+			return;
 		}
 	}
 }

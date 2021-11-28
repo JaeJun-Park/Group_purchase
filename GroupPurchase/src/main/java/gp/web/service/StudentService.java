@@ -18,6 +18,10 @@ public class StudentService
 {
 	private Connection conn;
 	
+	public StudentService() {
+
+	}
+
 	private void connectWithDB()
 	{
 		try {
@@ -37,7 +41,6 @@ public class StudentService
 	{
 		Student stu = null;
 		String sql = "select * from Student where " + field + " = ?";
-		System.out.println(sql);
 		try
 		{
 			connectWithDB();

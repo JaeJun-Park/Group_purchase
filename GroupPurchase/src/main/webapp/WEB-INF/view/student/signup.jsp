@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>     
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,6 +66,43 @@
 </script>
 </head>
 <body>
+	<nav class="navbar navbar-default">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+				aria-expanded="false">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>	
+			</button>
+			<a class="navbar-brand" href="home">KNU공동구매</a>
+		</div>
+		<div class = "collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="home">메인</a></li>
+				<li><a href="chatpage">메시지함</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">접속하기<span class="caret"></span>
+					</a>	
+					<ul class="dropdown=menu">
+					<c:choose>
+            			<c:when test="${isLogin}">
+            				<li><a href="./login?c=out">로그아웃</a></li>
+            			</c:when>
+            			<c:when test="${!islogin}">
+		            		<li><a href="./login">로그인</a></li>
+		            		<li><a href="./signup">회원가입</a></li>
+		            	</c:when>
+		            </c:choose>
+		            </ul>
+				</li>	
+			</ul>
+		</div>
+	</nav>
 	<div class="container">
 		<form method="post" action="./userRegister">
 			<table class="table table-borded table-hover" style="text-align: center; border: 1px solid #dddddd">
@@ -99,11 +139,6 @@
 					</tr>					
 				</tbody>	
 			</table>
-		</form>
-		<form method="get" action="./home">
-			<div class="container">
-				<h5 style="color: red;"></h5><input class ="btn btn-primary pull-right" type="submit" value="홈으로">
-			</div>
 		</form>
 	</div>
 	<% 
