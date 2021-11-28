@@ -38,7 +38,7 @@ public class ChatroomController extends HttpServlet{
 			req.setAttribute("isLogin", isLogin);
 			req.setAttribute("studentNum", studentNum);
 			req.setAttribute("roomNum", roomNum);			
-			req.getRequestDispatcher("/WEB-INF/view/student/chatroom.jsp").forward(req, resp); 
+			req.getRequestDispatcher("/WEB-INF/view/chat/chatroom.jsp").forward(req, resp); 
 		}
 
 	}

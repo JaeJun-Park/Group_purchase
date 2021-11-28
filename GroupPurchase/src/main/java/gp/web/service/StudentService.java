@@ -41,6 +41,8 @@ public class StudentService
 	{
 		Student stu = null;
 		String sql = "select * from Student where " + field + " = ?";
+		System.out.println(sql);
+		System.out.println(val);
 		try
 		{
 			connectWithDB();
@@ -50,17 +52,17 @@ public class StudentService
 
 			if(rs.next())
 			{
-				String sNum = rs.getString("studentnum");
-				String name = rs.getString("name");
-				String id = rs.getString("id");
-				String pw = rs.getString("password");
-				float cred = rs.getFloat("credibility");
+				String sNum = rs.getString(1);
+				String name = rs.getString(2);
+				String sId = rs.getString(3);
+				String sPw = rs.getString(4);
+				float cred = rs.getFloat(5);
 				
 				stu = new Student(
 						sNum,
 						name,
-						id,
-						pw,
+						sId,
+						sPw,
 						cred
 					);
 			}
@@ -199,6 +201,35 @@ public class StudentService
 			pstmt.setString(3,  id);
 			pstmt.setString(4,  pw);
 			pstmt.setFloat(5, 0.0f);
+			int count = pstmt.executeUpdate();
+			return count;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return -1; //디비오류
+	}
+	
+	public int update(String sNum, String name, String pw)
+	{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql =  "UPDATE STUDENT SET Name = ?, password = ? where StudentNum = ?";
+		try {
+			connectWithDB();
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1,  name);
+			pstmt.setString(2,  pw);
+			pstmt.setString(3,  sNum);
 			int count = pstmt.executeUpdate();
 			return count;
 		}

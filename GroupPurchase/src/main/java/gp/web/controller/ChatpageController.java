@@ -9,12 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import gp.web.entity.Student;
+
 
 @WebServlet("/chatpage")
 public class ChatpageController extends HttpServlet{
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+	{
 		HttpSession session = req.getSession();
 		boolean isLogin = false;
 		String studentNum = null;
@@ -33,9 +36,8 @@ public class ChatpageController extends HttpServlet{
 		{
 			req.setAttribute("isLogin", isLogin);
 			req.setAttribute("studentNum", studentNum);
-			System.out.println(studentNum);
 			
-			req.getRequestDispatcher("/WEB-INF/view/student/chatpage.jsp").forward(req, resp); 
+			req.getRequestDispatcher("/WEB-INF/view/chat/chatpage.jsp").forward(req, resp); 
 		}
 	}
 	

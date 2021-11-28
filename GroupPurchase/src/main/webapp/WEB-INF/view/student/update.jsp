@@ -7,15 +7,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/custom.css">
-	<title>로그인</title>
+	<title>update</title>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script type = "text/javascript" src="./js/bootstrap.js"></script>
-	<title>Login</title>
+	<script type = "text/javascript">
+	function passwordCheckFunction() {
+		var userPassword1 = $('#userPassword1').val();
+		var userPassword2 = $('#userPassword2').val();
+		if(userPassword1 != userPassword2){
+			$('#passwordCheckMessage').html('비밀번호가 서로 일치하지 않습니다.');
+		}
+		else{
+			$('#passwordCheckMessage').html('');
+		}
+	}
+</script>
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -44,7 +54,7 @@
 							</a>		
 							<ul class="dropdown-menu">
 								<li><a href="./mypage">프로필</a>
-	            				<li><a href="./update">회원정보수정</a></li>
+	            				<li class="active"><a href="./update">회원정보수정</a></li>
 	            				<li><a href="./login?c=out">로그아웃</a></li>
 	            				
 	            			</ul>
@@ -59,7 +69,7 @@
 								aria-expanded="false">마이페이지<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-	            				<li class="active"><a href="./login">로그인</a></li>
+	            				<li><a href="./login">로그인</a></li>
 		            			<li><a href="./signup">회원가입</a></li>
 	            			</ul>		
 	            		</li>
@@ -68,37 +78,48 @@
 	    	</c:choose>
 		</div>
 	</nav>
-	<main>
-		<div class="container">
-			<form action="./login" method="post">
-				<table class="table table-borded table-hover" style="text-align: center; border: 1px solid #dddddd">
-					<thead>
-						<tr>
-							<th colspan="3"><h4>로그인</h4></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td style="width: 120px;"><h5>아이디</h5></td>
-							<td	colspan="2"><input class="form-control" type="text" id="id" name="id" maxlength="20" placeholder="아이디(ID)"></td>
-						</tr>
-						<tr>
-							<td style="width: 120px;"><h5>비밀번호</h5></td>
-							<td colspan="2"><input class="form-control" type="password" id="pw" name="pw" maxlength="20" placeholder="패스워드(PW)"></td>
-						</tr>		
-						<tr>
-							<td style="text-align: right" colspan="3"><h5 style="color: red;"></h5><input class ="btn btn-primary pull-right" type="submit" value="로그인"></td>
-						</tr>					
-					</tbody>	
-				</table>
-			</form>
-		</div>
-	</main>
-	
-	
-	
-	
-	
+	<div class="container">
+		<form method="post" action="./userUpdate">
+			<table class="table table-borded table-hover" style="text-align: center; border: 1px solid #dddddd">
+				<thead>
+					<tr>
+						<th colspan="2"><h4>회원정보수정</h4></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="width: 120px;"><h5>학번</h5></td>
+						<td>
+							<h5>${student.getStudentNum()}</h5>
+							<input type="hidden" name="userNum" value="${student.getStudentNum()}">
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 120px;"><h5>이름</h5></td>
+						<td colspan="2"><input class="form-control" type="text" id="userName" name="userName" maxlength="20" placeholder="이름을 입력해주세요." value="${student.getName()}"></td>
+					</tr>
+					<tr>
+						<td style="width: 120px;"><h5>아이디</h5></td>
+						<td>
+							<h5>${student.getId()}</h5>
+							<input type="hidden" name="userID" value="${student.getId()}">
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 120px;"><h5>비밀번호</h5></td>
+						<td colspan="2"><input class="form-control" type="password" onkeyup="passwordCheckFunction();" id="userPassword1" name="userPassword1" maxlength="20" placeholder="비밀번호를 입력해주세요.(20자 제한)"></td>
+					</tr>
+					<tr>
+						<td style="width: 120px;"><h5>비밀번호 확인</h5></td>
+						<td colspan="2"><input class="form-control" type="password" onkeyup="passwordCheckFunction();" id="userPassword2" name="userPassword2" maxlength="20" placeholder="비밀번호 확인을 입력해주세요.(20자 제한)"></td>						
+					</tr>		
+					<tr>
+						<td style="text-align: right" colspan="3"><h5 style="color: red;", id="passwordCheckMessage"></h5><input class ="btn btn-primary pull-right" type="submit" value="수정"></td>
+					</tr>					
+				</tbody>	
+			</table>
+		</form>
+	</div>
 	
 	
 	<% 
@@ -148,6 +169,4 @@
 		}
 	%>
 </body>
-
-
-
+</html>

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ㅍ<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>     
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
@@ -79,28 +79,41 @@
 		</div>
 		<div class = "collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="home">메인</a></li>
+				<li><a href="home">메인</a></li>
 				<li><a href="chatpage">메시지함</a></li>
 			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">접속하기<span class="caret"></span>
-					</a>	
-					<ul class="dropdown=menu">
-					<c:choose>
-            			<c:when test="${isLogin}">
-            				<li><a href="./login?c=out">로그아웃</a></li>
-            			</c:when>
-            			<c:when test="${!islogin}">
-		            		<li><a href="./login">로그인</a></li>
-		            		<li><a href="./signup">회원가입</a></li>
-		            	</c:when>
-		            </c:choose>
-		            </ul>
-				</li>	
-			</ul>
+			<c:choose>
+				<c:when test="${isLogin}">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false">접속하기<span class="caret"></span>
+							</a>		
+							<ul class="dropdown-menu">
+								<li><a href="./mypage">프로필</a>
+	            				<li><a href="./update">회원정보수정</a></li>
+	            				<li><a href="./login?c=out">로그아웃</a></li>
+	            				
+	            			</ul>
+	            		</li>
+	            	</ul>			
+            	</c:when>
+            	<c:when test="${!islogin}">
+		            <ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false">마이페이지<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+	            				<li><a href="./login">로그인</a></li>
+		            			<li class="active"><a href="./signup">회원가입</a></li>
+	            			</ul>		
+	            		</li>
+	            	</ul>			
+            	</c:when>
+	    	</c:choose>
 		</div>
 	</nav>
 	<div class="container">

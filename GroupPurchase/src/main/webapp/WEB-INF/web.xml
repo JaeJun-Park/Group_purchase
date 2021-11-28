@@ -44,4 +44,13 @@
   	<servlet-name>ChatRoomListServlet</servlet-name>
   	<url-pattern>/chatRoomList</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>UserUpdateServlet</servlet-name>
+  	<servlet-class>gp.web.servlet.UserUpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UserUpdateServlet</servlet-name>
+  	<url-pattern>/userUpdate</url-pattern>
+  </servlet-mapping>
 </web-app>
