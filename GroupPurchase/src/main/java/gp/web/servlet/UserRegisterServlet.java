@@ -37,12 +37,11 @@ public class UserRegisterServlet extends HttpServlet{
 			return;
 		}
 		int result = new StudentService().register(num, name, id, pw1);
-		System.out.println(result);
 		if(result == 1)
 		{
 			req.getSession().setAttribute("messageType", "성공 메시지");
 			req.getSession().setAttribute("messageContent", "회원가입에 성공했습니다.");
-			resp.sendRedirect("./signup");
+			resp.sendRedirect("./home");
 			return;
 		}
 		else

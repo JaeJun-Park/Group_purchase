@@ -17,7 +17,6 @@ public class LoginController extends HttpServlet{
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		System.out.println("login");
 		String idT = req.getParameter("id");
 		String pwT = req.getParameter("pw");
 	
@@ -29,27 +28,25 @@ public class LoginController extends HttpServlet{
 		if(pwT != null && !pwT.equals(""))
 			pw = pwT;
 		
-		System.out.println(id);
-		System.out.println(pw);
-		
 		StudentService serv = new StudentService();
 		Student stu = new Student();
-		
 		stu = serv.login(id, pw);
 		
 		if(stu != null)
 		{
-			System.out.println("로그인성공");
 			HttpSession session = req.getSession();		
 			session.setAttribute("isLogin", true);
 			session.setAttribute("loginNum", stu.getStudentNum());
 			session.setAttribute("student", stu);
+			session.setAttribute("messageType", "성공 메시지");
+			session.setAttribute("messageContent", "로그인에 성공했습니다.");
 			resp.sendRedirect("./home");
 		}
 		else
 		{
-			System.out.println("로그인실패");
-			req.getRequestDispatcher("/WEB-INF/view/student/login.jsp").forward(req, resp);
+			req.getSession().setAttribute("messageType", "오류 메시지");
+			req.getSession().setAttribute("messageContent", "아이디와 비밀번호가 일치하지 않습니다.");
+			resp.sendRedirect("./login");
 		}
 		
 	}
@@ -61,7 +58,15 @@ public class LoginController extends HttpServlet{
 		
 		if(log == null)
 		{
-			req.getRequestDispatcher("/WEB-INF/view/student/login.jsp").forward(req, resp);
+			if(req.getSession().getAttribute("student") != null)
+			{
+				req.getSession().setAttribute("messageType", "오류 메시지");
+				req.getSession().setAttribute("messageContent", "현재 로그인이 되어있는 상태입니다.");
+				resp.sendRedirect("./home");
+				return;
+			}
+			else
+				req.getRequestDispatcher("/WEB-INF/view/student/login.jsp").forward(req, resp);
 		}
 		else if(log.equals("out"))
 		{
@@ -70,6 +75,7 @@ public class LoginController extends HttpServlet{
 			session.setAttribute("loginNum", "");
 			session.setAttribute("student", null);
 			resp.sendRedirect("./home");
+			return;
 		}
 	}
 }

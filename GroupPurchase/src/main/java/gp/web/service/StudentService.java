@@ -5,6 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import gp.web.entity.Student;
 
@@ -12,26 +18,21 @@ public class StudentService
 {
 	private Connection conn;
 	
+	public StudentService() {
+
+	}
+
 	private void connectWithDB()
 	{
-		conn = null;
-		String serverIP = "localhost";
-		String strSID = "orcl";
-		String portNum = "1521";
-		String user = "GroupPurchase";
-		String pass = "1234";
-		String url = "jdbc:oracle:thin:@" + serverIP +":"+portNum+":"+strSID;
-		
-		try
-		{
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conn = DriverManager.getConnection(url, user, pass);
-		}
-		catch(ClassNotFoundException e)
-		{
+		try {
+			InitialContext initCtx = new InitialContext();
+			Context envContext = (Context) initCtx.lookup("java:/comp/env");
+			DataSource ds = (DataSource) envContext.lookup("jdbc/GroupPurchase");
+			conn = ds.getConnection();
+			initCtx.close(); //?
+		} catch (SQLException e) {
 			e.printStackTrace();
-		} catch (SQLException e) 
-		{
+		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
@@ -40,7 +41,6 @@ public class StudentService
 	{
 		Student stu = null;
 		String sql = "select * from Student where " + field + " = ?";
-		System.out.println(sql);
 		try
 		{
 			connectWithDB();
@@ -75,26 +75,27 @@ public class StudentService
 	
 	public Student login(String id, String pw)
 	{
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		Student stu = null;
-		String sql = "select * from Student where ID = ? AND Password = ?";
-		System.out.println(sql);
+		String sql = "SELECT * from STUDENT where ID = ? AND Password = ?";
 		
 		try
 		{
+			
 			connectWithDB();
-			PreparedStatement st = conn.prepareStatement(sql);
-			st.setString(1, id);
-			st.setString(2, pw);
-			ResultSet rs = st.executeQuery();
-
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			rs = pstmt.executeQuery();
 			if(rs.next())
 			{
-				String sNum = rs.getString("studentnum");
-				String name = rs.getString("name");
-				String sId = rs.getString("id");
-				String sPw = rs.getString("password");
-				float cred = rs.getFloat("credibility");
-				
+				String sNum = rs.getString(1);
+				String name = rs.getString(2);
+				String sId = rs.getString(3);
+				String sPw = rs.getString(4);
+				float cred = rs.getFloat(5);
 				stu = new Student(
 						sNum,
 						name,
@@ -103,11 +104,16 @@ public class StudentService
 						cred
 					);
 			}
-			rs.close();
-			st.close();
-			conn.close();
-		}catch (SQLException e) {
+		}catch(Exception e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 		return stu;
 	}
