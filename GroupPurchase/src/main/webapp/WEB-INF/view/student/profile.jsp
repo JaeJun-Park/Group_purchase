@@ -1,17 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>     
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
+	    pageEncoding="UTF-8"%>
+	<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>     
+	<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+	<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/custom.css">
-	<title>Mypage</title>
+	<link rel="stylesheet" href="./css/bootstrap.css">
+	<link rel="stylesheet" href="./css/custom.css">
+	<title>home</title>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script type = "text/javascript" src="./js/bootstrap.js"></script>
 </head>
@@ -38,10 +38,10 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false">마이프로필<span class="caret"></span>
+								aria-expanded="false">마이페이지<span class="caret"></span>
 							</a>		
 							<ul class="dropdown-menu">
-								<li class="active"><a href="./mypage">프로필</a>
+								<li><a href="./mypage">프로필</a>
 	            				<li><a href="./update">회원정보수정</a></li>
 	            				<li><a href="./login?c=out">로그아웃</a></li>
 	            				
@@ -63,14 +63,14 @@
 	            		</li>
 	            	</ul>			
             	</c:when>
-	    	</c:choose>
+	    	</c:choose>S
 		</div>
 	</nav>
 	<div class="container">
 		<table class="table table-borded table-hover" style="text-align: center; border: 1px solid #dddddd">
 			<thead>
 				<tr>
-					<th colspan="2"><h4>마이페이지</h4></th>
+					<th colspan="2"><h4>프로필</h4></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -105,6 +105,7 @@
 			</tbody>	
 		</table>
 	</div>
+	
 	
 	
 	<% 

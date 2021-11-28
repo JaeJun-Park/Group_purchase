@@ -41,8 +41,6 @@ public class StudentService
 	{
 		Student stu = null;
 		String sql = "select * from Student where " + field + " = ?";
-		System.out.println(sql);
-		System.out.println(val);
 		try
 		{
 			connectWithDB();

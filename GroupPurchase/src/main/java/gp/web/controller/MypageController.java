@@ -17,7 +17,7 @@ public class MypageController extends HttpServlet
 {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		
 		HttpSession session = req.getSession();
 		boolean isLogin = false;
 		Student stu = null;
