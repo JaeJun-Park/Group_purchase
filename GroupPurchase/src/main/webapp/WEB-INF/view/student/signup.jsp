@@ -80,6 +80,7 @@
 		<div class = "collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="home">메인</a></li>
+				<li><a href="post/list">게시판</a></li>
 				<li><a href="chatpage">메시지함</a></li>
 			</ul>
 			<c:choose>
