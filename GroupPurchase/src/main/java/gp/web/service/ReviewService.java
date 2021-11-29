@@ -172,6 +172,71 @@ public class ReviewService {
 		}
 		return rvw;
 	}
+	public int writeReview(String writerNum, String evaluateeNum, int postNum, float rating, String comment)
+	{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "INSERT INTO REVIEW VALUES(?, ?, ?, ?, ?, ?, TO_DATE(?, 'yyyymmddhh24mi'))";
+		int reviewNum = getRecentReviewNum(evaluateeNum);
+		reviewNum +=1;
+		Timestamp time = new Timestamp(System.currentTimeMillis());
+		String strTime = timestampToString(time);
+		try
+		{
+			connectWithDB();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reviewNum);
+			pstmt.setString(2, writerNum);
+			pstmt.setString(3, evaluateeNum);
+			pstmt.setInt(4, postNum);
+			pstmt.setFloat(5, rating);
+			pstmt.setString(6, comment);
+			pstmt.setString(7, strTime);
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		
+		return -1; //실패
+	}
+	
+	public int getRecentReviewNum(String evaluateeNum)
+	{
+		int reviewNum = 0; //초기값
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select max(reviewNum) from review where evaluateeNum = ?";
+		try
+		{
+			connectWithDB();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, evaluateeNum);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+			{
+				reviewNum = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return reviewNum;
+	}
 	public String timestampToString(Timestamp time)
 	{
 		SimpleDateFormat fm = new SimpleDateFormat("yyyyMMddHHmm");

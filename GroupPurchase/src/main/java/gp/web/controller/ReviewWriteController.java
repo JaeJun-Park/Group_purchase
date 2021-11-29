@@ -12,11 +12,12 @@ import javax.servlet.http.HttpSession;
 import gp.web.entity.Review;
 import gp.web.service.ReviewService;
 
-@WebServlet("/detailReview")
-public class ReviewController extends HttpServlet
+@WebServlet("/writeReview")
+public class ReviewWriteController extends HttpServlet
 {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		
 		HttpSession session = req.getSession();
 		if(loginCheck(session) == false)
@@ -25,22 +26,23 @@ public class ReviewController extends HttpServlet
 			return;
 		}
 		
-		int reviewNum = 0;
-		String strNum = null;
+		String writerNum = null;
+		if(session.getAttribute("loginNum")!= null)
+			writerNum = (String) session.getAttribute("loginNum");
+		
+		System.out.println(writerNum);
+		
 		String evaluateeNum = null;
-		
-		strNum = req.getParameter("reviewNum");
+		String strPostNum = null;
+
 		evaluateeNum = req.getParameter("evaluateeNum");
+		strPostNum = req.getParameter("postNum");
 		
-		if(evaluateeNum == null || evaluateeNum.equals("") || strNum == null || strNum.equals(""))
-		{
-			req.getSession().setAttribute("messageType", "오류 메시지");
-			req.getSession().setAttribute("messageContent", "데이터베이스 오류가 발생했습니다.");
-			resp.sendRedirect("./home");
-			return;
-		}
-		reviewNum = Integer.parseInt(strNum);
-		if(reviewNum <= 0)
+		evaluateeNum = "202101";
+		strPostNum = "100";
+		
+		
+		if(evaluateeNum == null || evaluateeNum.equals("") || strPostNum == null || strPostNum.equals("") || strPostNum.equals("0"))
 		{
 			req.getSession().setAttribute("messageType", "오류 메시지");
 			req.getSession().setAttribute("messageContent", "데이터베이스 오류가 발생했습니다.");
@@ -48,22 +50,12 @@ public class ReviewController extends HttpServlet
 			return;
 		}
 		
-		Review rvw = null;
-		ReviewService serv = new ReviewService();
-		rvw = serv.getReview(reviewNum, evaluateeNum);
+		req.setAttribute("writerNum", writerNum);
+		req.setAttribute("evaluateeNum", evaluateeNum);
+		req.setAttribute("postNum", strPostNum);
+		req.getRequestDispatcher("/WEB-INF/view/review/reviewWrite.jsp").forward(req, resp); 
 		
-		if(rvw == null)
-		{
-			req.getSession().setAttribute("messageType", "오류 메시지");
-			req.getSession().setAttribute("messageContent", "데이터베이스 오류가 발생했습니다.");
-			resp.sendRedirect("./home");
-			return;
-		}
-		else
-		{
-			req.setAttribute("review", rvw);
-			req.getRequestDispatcher("/WEB-INF/view/review/review.jsp").forward(req, resp); 
-		}
+		
 	}
 	private boolean loginCheck(HttpSession session)
 	{
