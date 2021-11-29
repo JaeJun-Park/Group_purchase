@@ -250,4 +250,63 @@ public class ChatroomService {
 		}
 		return chatList;
 	}
+	public int createChatRoom(int roomNum, int postNum)
+	{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "INSERT INTO CHATROOM VALUES (?, ?)";
+		try {
+			connectWithDB();
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1,  roomNum);
+			pstmt.setInt(2,  postNum);
+			int count = pstmt.executeUpdate();
+			return count;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return -1; //디비오류
+	}
+	
+	public int participateInChatRoom(int roomNum, String studentNum)
+	{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "INSERT INTO PARTICIPATE VALUES(?, ?, TO_DATE(?, 'yyyymmddhh24mi'))";
+		Timestamp time = new Timestamp(System.currentTimeMillis());
+		String strTime = timestampToString(time);
+		try {
+			connectWithDB();
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1,  roomNum);
+			pstmt.setString(2,  studentNum);
+			pstmt.setString(3, strTime);
+			return pstmt.executeUpdate();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return -1; //디비오류
+	}
+	
+	
 }

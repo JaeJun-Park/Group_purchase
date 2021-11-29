@@ -11,7 +11,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<link rel="stylesheet" href="css/custom.css">
-	<title>Mypage</title>
+	<title>Review</title>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script type = "text/javascript" src="./js/bootstrap.js"></script>
 </head>
@@ -41,7 +41,7 @@
 								aria-expanded="false">마이페이지<span class="caret"></span>
 							</a>		
 							<ul class="dropdown-menu">
-								<li class="active"><a href="./mypage">프로필</a>
+								<li><a href="./mypage">프로필</a>
 	            				<li><a href="./update">회원정보수정</a></li>
 	            				<li><a href="./login?c=out">로그아웃</a></li>
 	            				
@@ -70,33 +70,39 @@
 		<table class="table table-borded table-hover" style="text-align: center; border: 1px solid #dddddd">
 			<thead>
 				<tr>
-					<th colspan="2"><h4>프로필</h4></th>
+					<th colspan="4"><h4>${review.getReviewNum()}</h4></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td style="width: 120px;"><h5>학번</h5></td>
-					<td>
-						<h5>${student.getStudentNum()}</h5>
-						<input type="hidden" name="userNum" value="${student.getStudentNum()}">
+					<td style="width: 120px;"><h5>작성자</h5></td>
+					<td style="width: 300px;">
+						<h5>${review.getWriterNum()}</h5>
+						<input type="hidden" name="writerNum" value="${review.getWriterNum()}">
+					</td>
+					<td style="width: 120px;"><h5>대상</h5></td>
+					<td style="width: 300px;">
+						<h5>${review.getEvaluateeNum()}</h5>
+						<input type="hidden" name="evaluateeNum" value="${review.getEvaluateeNum()}">
 					</td>
 				</tr>
 				<tr>
-					<td style="width: 120px;"><h5>이름</h5></td>
-					<td>
-						<h5>${student.getName()}</h5>
+					<td style="width: 120px;"><h5>내용</h5></td>
+					<td colspan="3">
+						<h5>${review.getComment()}</h5>
+						<input type="hidden" name="comment" value="${review.getComment()}">
 					</td>
 				</tr>
 				<tr>
-					<td style="width: 120px;"><h5>아이디</h5></td>
-					<td>
-						<h5>${student.getId()}</h5>
+					<td style="width: 120px;"><h5>평점</h5></td>
+					<td style="width: 300px;">
+						<h5>${review.getRating()}</h5>
+						<input type="hidden" name="rating" value="${review.getRating()}">
 					</td>
-				</tr>
-				<tr>
-					<td style="width: 120px;"><h5>신뢰도</h5></td>
-					<td>
-						<h5>${student.getCredibility()}</h5>
+					<td style="width: 120px;"><h5>시간</h5></td>
+					<td style="width: 300px;">
+						<h5>${review.getTime()}</h5>
+						<input type="hidden" name="time" value="${review.getTime()}">
 					</td>
 				</tr>						
 			</tbody>	

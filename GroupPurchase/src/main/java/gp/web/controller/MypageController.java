@@ -17,7 +17,7 @@ public class MypageController extends HttpServlet
 {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		
 		HttpSession session = req.getSession();
 		boolean isLogin = false;
 		Student stu = null;
@@ -35,6 +35,7 @@ public class MypageController extends HttpServlet
 		else
 		{
 			req.setAttribute("student", stu);
+			req.setAttribute("isLogin", isLogin);
 			req.getRequestDispatcher("/WEB-INF/view/student/mypage.jsp").forward(req, resp); 
 		}
 	}

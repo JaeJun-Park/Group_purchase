@@ -29,31 +29,81 @@
 		</div>
 		<div class = "collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="home">메인</a></li>
+				<li><a href="home">메인</a></li>
 				<li><a href="chatpage">메시지함</a></li>
 			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="./mypage" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">마이페이지<span class="caret"></span>
-					</a>		
-					<ul class="dropdown=menu">
-					<c:choose>
-            			<c:when test="${isLogin}">
-            				<li><a href="./update">회원정보수정</a></li>
-            				<li><a href="./login?c=out">로그아웃</a></li>
-            			</c:when>
-            			<c:when test="${!islogin}">
-		            		<li><a href="./login">로그인</a></li>
-		            		<li><a href="./signup">회원가입</a></li>
-		            	</c:when>
-		            </c:choose>
-		            </ul>
-				</li>	
-			</ul>
+			<c:choose>
+				<c:when test="${isLogin}">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false">마이페이지<span class="caret"></span>
+							</a>		
+							<ul class="dropdown-menu">
+								<li><a href="./mypage">프로필</a>
+	            				<li><a href="./update">회원정보수정</a></li>
+	            				<li><a href="./login?c=out">로그아웃</a></li>
+	            			</ul>
+	            		</li>
+	            	</ul>			
+            	</c:when>
+            	<c:when test="${!islogin}">
+		            <ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false">접속하기<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+	            				<li><a href="./login">로그인</a></li>
+		            			<li><a href="./signup">회원가입</a></li>
+	            			</ul>		
+	            		</li>
+	            	</ul>			
+            	</c:when>
+	    	</c:choose>
 		</div>
 	</nav>
+	<div class="container">
+		<table class="table table-borded table-hover" style="text-align: center; border: 1px solid #dddddd">
+			<thead>
+				<tr>
+					<th colspan="2"><h4>프로필</h4></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="width: 120px;"><h5>학번</h5></td>
+					<td>
+						<h5>${student.getStudentNum()}</h5>
+						<input type="hidden" name="userNum" value="${student.getStudentNum()}">
+					</td>
+				</tr>
+				<tr>
+					<td style="width: 120px;"><h5>이름</h5></td>
+					<td>
+						<h5>${student.getName()}</h5>
+						<input type="hidden" name="userNum" value="${student.getName()}">
+					</td>
+				</tr>
+				<tr>
+					<td style="width: 120px;"><h5>아이디</h5></td>
+					<td>
+						<h5>${student.getId()}</h5>
+						<input type="hidden" name="userID" value="${student.getId()}">
+					</td>
+				</tr>
+				<tr>
+					<td style="width: 120px;"><h5>신뢰도</h5></td>
+					<td>
+						<h5>${student.getCredibility()}</h5>
+						<input type="hidden" name="userCred" value="${student.getCredibility()}">
+					</td>
+				</tr>						
+			</tbody>	
+		</table>
+	</div>
 	
 	
 	

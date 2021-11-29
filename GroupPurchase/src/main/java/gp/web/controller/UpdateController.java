@@ -33,6 +33,7 @@ public class UpdateController extends HttpServlet{
 			else
 			{
 				req.setAttribute("student", stu);
+				req.setAttribute("isLogin", isLogin);
 				req.getRequestDispatcher("/WEB-INF/view/student/update.jsp").forward(req, resp); 
 			}
 		}

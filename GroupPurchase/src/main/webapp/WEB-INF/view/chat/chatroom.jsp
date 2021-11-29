@@ -76,7 +76,8 @@
 			$('#chatList').append('<div class="row">' + 
 					'<div class= "col-lg-12">' +
 					'<div class= "media">' +
-					'<a class="pull-left" href="#">' + 
+					'<a class="pull-left" href=\'./profile?studentNum='+chatName+ '\'>' + 
+					'<img class="media-object img-circle" style="width: 30px; height: 30px;" src="images/icon.png" alt = "">' +
 					'</a>' +
 					'<div class= "media-body">' +
 					'<h4 class="media-heading">' +
@@ -125,7 +126,7 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false">접속하기<span class="caret"></span>
+								aria-expanded="false">마이페이지<span class="caret"></span>
 							</a>		
 							<ul class="dropdown-menu">
 								<li><a href="./mypage">프로필</a>
@@ -141,7 +142,7 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false">마이페이지<span class="caret"></span>
+								aria-expanded="false">접속하기<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
 	            				<li><a href="./login">로그인</a></li>
@@ -159,7 +160,7 @@
 					<div class="portlet portlet-default">
 						<div class="portlet-heading">
 							<div class="portlet-title">
-								<h4><i class="fa fa-circle text-green"></i>채팅창</h4>
+								<h4><i class="fa fa-circle text-green"></i>${roomNum}</h4>
 							</div>
 							<div class="clearfix"></div>
 						</div>
