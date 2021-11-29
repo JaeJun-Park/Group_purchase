@@ -11,7 +11,6 @@ public class Message {
 	private Timestamp time;
 	
 	public Message() {
-		super();
 	}
 
 	public Message(String studentNum, int roomNum, int messageNum, String text, Timestamp time) {

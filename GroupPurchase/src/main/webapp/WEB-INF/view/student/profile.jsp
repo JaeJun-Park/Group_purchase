@@ -44,7 +44,6 @@
 								<li><a href="./mypage">프로필</a>
 	            				<li><a href="./update">회원정보수정</a></li>
 	            				<li><a href="./login?c=out">로그아웃</a></li>
-	            				
 	            			</ul>
 	            		</li>
 	            	</ul>			
@@ -63,7 +62,7 @@
 	            		</li>
 	            	</ul>			
             	</c:when>
-	    	</c:choose>S
+	    	</c:choose>
 		</div>
 	</nav>
 	<div class="container">

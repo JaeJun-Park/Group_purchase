@@ -35,6 +35,7 @@ public class MypageController extends HttpServlet
 		else
 		{
 			req.setAttribute("student", stu);
+			req.setAttribute("isLogin", isLogin);
 			req.getRequestDispatcher("/WEB-INF/view/student/mypage.jsp").forward(req, resp); 
 		}
 	}

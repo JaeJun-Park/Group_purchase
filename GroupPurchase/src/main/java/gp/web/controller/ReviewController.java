@@ -9,48 +9,52 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import gp.web.entity.Student;
-import gp.web.service.StudentService;
+import gp.web.entity.Review;
+import gp.web.service.ReviewService;
 
-@WebServlet("/profile")
-public class ProfileController extends HttpServlet{
-	
+@WebServlet("/review")
+public class ReviewController extends HttpServlet
+{
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		String studentNum = null;
-		HttpSession session = req.getSession();
 		
+		HttpSession session = req.getSession();
 		if(loginCheck(session) == false)
 		{
 			resp.sendRedirect("./login");
 			return;
 		}
 		
-		if(req.getParameter("studentNum") != null)
-			studentNum = req.getParameter("studentNum");
+		int reviewNum = 0;
+		String evaluateeNum = null;
 		
-		if(studentNum == null || studentNum.equals(""))
+		reviewNum = 1; //임시
+		evaluateeNum = "201710"; //임시
+		
+		if(evaluateeNum == null || evaluateeNum.equals("") || reviewNum < 1)
 		{
 			req.getSession().setAttribute("messageType", "오류 메시지");
 			req.getSession().setAttribute("messageContent", "데이터베이스 오류가 발생했습니다.");
 			resp.sendRedirect("./home");
 			return;
 		}
-		else if(studentNum.equals("나"))
+		Review rvw = null;
+		ReviewService serv = new ReviewService();
+		rvw = serv.getReview(reviewNum, evaluateeNum);
+		
+		if(rvw == null)
 		{
-			resp.sendRedirect("./mypage");
+			req.getSession().setAttribute("messageType", "오류 메시지");
+			req.getSession().setAttribute("messageContent", "데이터베이스 오류가 발생했습니다.");
+			resp.sendRedirect("./home");
+			return;
 		}
 		else
 		{
-			StudentService serv = new StudentService();
-			Student stu = new Student();
-			stu = serv.getStudent("studentNum", studentNum);
-		
-			req.setAttribute("student", stu);			
-			req.getRequestDispatcher("/WEB-INF/view/student/profile.jsp").forward(req, resp); 
+			req.setAttribute("review", rvw);
+			req.getRequestDispatcher("/WEB-INF/view/review/review.jsp").forward(req, resp); 
 		}
 	}
-	
 	private boolean loginCheck(HttpSession session)
 	{
 		boolean isLogin = false;

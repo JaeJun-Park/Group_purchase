@@ -40,6 +40,4 @@ public class ChatpageController extends HttpServlet{
 			req.getRequestDispatcher("/WEB-INF/view/chat/chatpage.jsp").forward(req, resp); 
 		}
 	}
-	
-
 }
