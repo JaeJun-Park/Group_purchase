@@ -80,7 +80,9 @@
 		<div class = "collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="home">메인</a></li>
+				<li><a href="post/list">게시판</a></li>
 				<li><a href="chatpage">메시지함</a></li>
+				<li><a href="receivedReview?studentNum=${loginNum}">리뷰</a><li>
 			</ul>
 			<c:choose>
 				<c:when test="${isLogin}">
@@ -118,7 +120,7 @@
 	</nav>
 	<div class="container">
 		<form method="post" action="./userRegister">
-			<table class="table table-borded table-hover" style="text-align: center; border: 1px solid #dddddd">
+			<table class="table table-bordered table-hover" style="text-align: center; border: 1px solid #dddddd">
 				<thead>
 					<tr>
 						<th colspan="3"><h4>회원가입</h4></th>

@@ -172,6 +172,141 @@ public class ReviewService {
 		}
 		return rvw;
 	}
+	public int writeReview(String writerNum, String evaluateeNum, int postNum, float rating, String comment)
+	{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "INSERT INTO REVIEW VALUES(?, ?, ?, ?, ?, ?, TO_DATE(?, 'yyyymmddhh24mi'))";
+		int reviewNum = getRecentReviewNum(evaluateeNum);
+		reviewNum +=1;
+		Timestamp time = new Timestamp(System.currentTimeMillis());
+		String strTime = timestampToString(time);
+		try
+		{
+			connectWithDB();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reviewNum);
+			pstmt.setString(2, writerNum);
+			pstmt.setString(3, evaluateeNum);
+			pstmt.setInt(4, postNum);
+			pstmt.setFloat(5, rating);
+			pstmt.setString(6, comment);
+			pstmt.setString(7, strTime);
+			return pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		
+		return -1; //실패
+	}
+	
+	public int getRecentReviewNum(String evaluateeNum)
+	{
+		int reviewNum = 0; //초기값
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select max(reviewNum) from review where evaluateeNum = ?";
+		try
+		{
+			connectWithDB();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, evaluateeNum);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+			{
+				reviewNum = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return reviewNum;
+	}
+	public int getReviewCount(String evaluateeNum)
+	{
+		int count = 0; //초기값
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select Count(*) from review where evaluateeNum = ?";
+		try
+		{
+			connectWithDB();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, evaluateeNum);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+			{
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return count;
+	}
+	public ArrayList<Review> getStudentNumCanWrite(String studentNum)
+	{
+		ArrayList<Review> reviewList =  null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select postNum, studentNum from join where postNum = '10' and studentNum != ? "
+				+ "minus "
+				+ "select postNum, evaluateeNum as studentNum from review where postNum = '10' AND writerNum = ?";
+		
+		try
+		{
+			connectWithDB();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, studentNum);
+			pstmt.setString(2, studentNum);
+			rs = pstmt.executeQuery();
+			reviewList = new ArrayList<Review>();
+			while(rs.next())
+			{
+				int postNum = rs.getInt(1);
+				String sNum = rs.getString(2);
+				Review rvw = new Review();
+				rvw.setPostNum(postNum);
+				rvw.setEvaluateeNum(sNum);
+	
+				reviewList.add(rvw);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+				
+			}
+		}
+		return reviewList;
+	}
 	public String timestampToString(Timestamp time)
 	{
 		SimpleDateFormat fm = new SimpleDateFormat("yyyyMMddHHmm");

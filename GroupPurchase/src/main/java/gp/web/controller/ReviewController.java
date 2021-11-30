@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import gp.web.entity.Review;
 import gp.web.service.ReviewService;
 
-@WebServlet("/review")
+@WebServlet("/detailReview")
 public class ReviewController extends HttpServlet
 {
 	@Override
@@ -26,18 +26,28 @@ public class ReviewController extends HttpServlet
 		}
 		
 		int reviewNum = 0;
+		String strNum = null;
 		String evaluateeNum = null;
 		
-		reviewNum = 1; //임시
-		evaluateeNum = "201710"; //임시
+		strNum = req.getParameter("reviewNum");
+		evaluateeNum = req.getParameter("evaluateeNum");
 		
-		if(evaluateeNum == null || evaluateeNum.equals("") || reviewNum < 1)
+		if(evaluateeNum == null || evaluateeNum.equals("") || strNum == null || strNum.equals(""))
 		{
 			req.getSession().setAttribute("messageType", "오류 메시지");
 			req.getSession().setAttribute("messageContent", "데이터베이스 오류가 발생했습니다.");
 			resp.sendRedirect("./home");
 			return;
 		}
+		reviewNum = Integer.parseInt(strNum);
+		if(reviewNum <= 0)
+		{
+			req.getSession().setAttribute("messageType", "오류 메시지");
+			req.getSession().setAttribute("messageContent", "데이터베이스 오류가 발생했습니다.");
+			resp.sendRedirect("./home");
+			return;
+		}
+		
 		Review rvw = null;
 		ReviewService serv = new ReviewService();
 		rvw = serv.getReview(reviewNum, evaluateeNum);

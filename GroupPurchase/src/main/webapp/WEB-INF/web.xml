@@ -53,4 +53,31 @@
   	<servlet-name>UserUpdateServlet</servlet-name>
   	<url-pattern>/userUpdate</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ReceivedReviewListServlet</servlet-name>
+  	<servlet-class>gp.web.servlet.ReceivedReviewListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ReceivedReviewListServlet</servlet-name>
+  	<url-pattern>/getReceivedReviewList</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ReviewWriteServlet</servlet-name>
+  	<servlet-class>gp.web.servlet.ReviewWriteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ReviewWriteServlet</servlet-name>
+  	<url-pattern>/writingReview</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ReviewListForWriteServlet</servlet-name>
+  	<servlet-class>gp.web.servlet.ReviewListForWriteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ReviewListForWriteServlet</servlet-name>
+  	<url-pattern>/getReviewListForWrite</url-pattern>
+  </servlet-mapping>
 </web-app>
