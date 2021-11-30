@@ -61,7 +61,7 @@ public class TakeLogService {
     }
 
     public void setTakeLog(int postNum, String studentNum) {
-        String sql = "insert into join values (?, ?, ?,'T')";
+        String sql = "insert into take_log values (?, ?, ?,'T')";
 
 
         try {

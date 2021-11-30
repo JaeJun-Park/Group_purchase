@@ -91,7 +91,7 @@
                         <th class="expand">제목</th>
                         <th class="w100">작성자</th>
                         <th class="w100">작성일</th>
-                        <th class="w60">조회수</th>
+                        <th class="w60">현재인원</th>
                     </tr>
                     </thead>
                     <tbody>

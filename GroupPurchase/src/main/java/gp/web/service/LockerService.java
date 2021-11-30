@@ -34,7 +34,7 @@ public class LockerService {
         String sql = "update locker set postnum=?, password=?, isallocated=? " +
                 "where LOCKERNUM = ( " +
                 "    select LOCKERNUM from (select * from locker where ISALLOCATED='F') where rownum=1 " +
-                "    );";
+                "    )";
 
 
         try {
