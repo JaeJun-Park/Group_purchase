@@ -67,6 +67,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="home">메인</a></li>
 				<li><a href="post/list">게시판</a></li>
+				<li><a href="post/mylist">참여 내역</a>
 				<li class="active"><a href="chatpage">메시지함</a></li>
 				<li><a href="receivedReview?studentNum=${loginNum}">리뷰</a><li>
 			</ul>

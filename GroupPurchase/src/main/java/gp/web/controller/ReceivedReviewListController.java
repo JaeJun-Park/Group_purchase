@@ -48,7 +48,7 @@ public class ReceivedReviewListController extends HttpServlet
 		stu = serv.getStudent("studentNum", studentNum);
 		float avg = stu.getCredibility();
 		ReviewService rvwServ = new ReviewService();
-		int count = rvwServ.getReviewCount(studentNum);
+		int count = rvwServ.getReviewWriteCount(studentNum);
 		
 		if(session.getAttribute("loginNum").equals(studentNum))
 		{

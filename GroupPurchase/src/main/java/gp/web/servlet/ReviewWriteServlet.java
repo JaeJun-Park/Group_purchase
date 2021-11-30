@@ -1,6 +1,7 @@
 package gp.web.servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +33,14 @@ public class ReviewWriteServlet extends HttpServlet{
 		}
 		int postNum = Integer.parseInt(strPostNum);
 		float rating = Integer.parseInt(strRating);
-		int result = new ReviewService().writeReview(writerNum, evaluateeNum, postNum, rating, comment);
+		int result = 0;
+		try {
+			result = new ReviewService().writeReview(writerNum, evaluateeNum, postNum, rating, comment);
+		} 
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(result == 1)
 		{
 			req.getSession().setAttribute("messageType", "성공 메시지");

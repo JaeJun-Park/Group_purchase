@@ -245,4 +245,35 @@ public class StudentService
 		}
 		return -1; //디비오류
 	}
+	public int updateCredibility(String sNum, Connection con)
+	{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql =  "UPDATE  Student "
+				+ "SET     Credibility = (SELECT  AVG(R.Rating) "
+				+ "FROM    Student S, REVIEW R "
+				+ "WHERE   R.EvaluateeNum = S.StudentNum "
+				+ "AND     S.StudentNum = ?) "
+				+ "WHERE   StudentNum = ?";
+		try {
+			pstmt= con.prepareStatement(sql);
+			pstmt.setString(1,  sNum);
+			pstmt.setString(2,  sNum);
+			int count = pstmt.executeUpdate();
+			return count;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null) rs.close();
+				if(pstmt!=null)pstmt.close();
+				if(conn!=null)conn.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+		return -1; //디비오류
+	}
 }

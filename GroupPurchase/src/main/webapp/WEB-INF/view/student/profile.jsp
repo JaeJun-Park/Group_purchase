@@ -31,6 +31,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="home">메인</a></li>
 				<li><a href="post/list">게시판</a></li>
+				<li><a href="post/mylist">참여 내역</a>
 				<li><a href="chatpage">메시지함</a></li>
 				<li><a href="receivedReview?studentNum=${loginNum}">리뷰</a><li>
 			</ul>
@@ -71,37 +72,39 @@
 		<table class="table table-bordered table-hover" style="text-align: center; border: 1px solid #dddddd">
 			<thead>
 				<tr>
-					<th colspan="2"><h4>프로필</h4></th>
+					<th colspan="5"><h4>프로필</h4></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td style="width: 120px;"><h5>학번</h5></td>
-					<td>
+					<td colspan="4">
 						<h5>${student.getStudentNum()}</h5>
 						<input type="hidden" name="userNum" value="${student.getStudentNum()}">
-					</td>
+					</td>					
 				</tr>
 				<tr>
 					<td style="width: 120px;"><h5>이름</h5></td>
-					<td>
+					<td colspan="4">
 						<h5>${student.getName()}</h5>
-						<input type="hidden" name="userNum" value="${student.getName()}">
 					</td>
 				</tr>
 				<tr>
 					<td style="width: 120px;"><h5>아이디</h5></td>
-					<td>
+					<td colspan="4">
 						<h5>${student.getId()}</h5>
-						<input type="hidden" name="userID" value="${student.getId()}">
 					</td>
 				</tr>
 				<tr>
 					<td style="width: 120px;"><h5>신뢰도</h5></td>
 					<td>
 						<h5>${student.getCredibility()}</h5>
-						<input type="hidden" name="userCred" value="${student.getCredibility()}">
 					</td>
+					<td style="width: 120px;"><h5>리뷰 수</h5></td>
+					<td>
+						<h5>${count}</h5>
+					</td>
+					<td style="width: 120px;>"><input class ="btn btn-primary pull-right" type="button" onclick="location.href='./receivedReview?studentNum=${student.getStudentNum()}';" value="리뷰목록으로 이동"></td>
 				</tr>						
 			</tbody>	
 		</table>

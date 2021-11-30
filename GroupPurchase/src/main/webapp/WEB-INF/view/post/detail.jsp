@@ -45,6 +45,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="../home">메인</a></li>
 				<li class="active"><a href="../post/list">게시판</a></li>
+				<li><a href="./mylist">참여 내역</a>
 				<li><a href="../chatpage">메시지함</a></li>
 				<li><a href="../receivedReview?studentNum=${loginNum}">리뷰</a><li>
 			</ul>
@@ -89,21 +90,20 @@
 
 
         <main>
-            <h2 class="main title">게시판</h2>
 
-            <div class="margin-top first">
+            <div class="container">
                 <h3 class="hidden">게시글 내용</h3>
-                <table class="table">
+                <table class="table table-bordered table-hover" style="text-align: center; border: 1px solid #dddddd">
                     <tbody>
                     <tr>
                         <th>제목</th>
-                        <td class="text-align-left text-indent text-strong text-orange"
+                        <td class="text-align-center text-indent text-strong text-orange"
                             colspan="3">${post.title}
                         </td>
                     </tr>
                     <tr>
                         <th>작성일</th>
-                        <td class="text-align-left text-indent" colspan="3"><fmt:formatDate pattern="yy-MM-dd hh:mm:ss"
+                        <td class="text-align-center text-indent" colspan="3"><fmt:formatDate pattern="yy-MM-dd hh:mm:ss"
                                                                                             value="${post.date}"/>
                         </td>
                     </tr>
@@ -145,7 +145,7 @@
 
             <%--            if (((String) session.getAttribute("loginNum")).equals(post.getStudentNum())) {--%>
             <div class="margin-top text-align-center">
-                <a class="" href="list">list</a>
+                <a class="btn btn-primary pull-right" style = "margin-right:70px" href="list">list</a>
                 <%
                     if (loginNum != null) // login
                     {
@@ -153,21 +153,21 @@
                             if (join.getStudentNum().equals(loginNum)) // joined
                             {
                                 isJoined = true;
-                                out.print("<a class=\"\" href=\"../chatroom?roomNum=" + post.getPostNum() + "\">ChatRoom</a>\n"); // not yet
+                                out.print("<a class=\"btn btn-primary pull-right\" href=\"../chatroom?roomNum=" + post.getPostNum() + "\">ChatRoom</a>\n"); // not yet
                                 if (post.getStudentNum().equals(loginNum)) // writer
                                 {
                                     if (post.getState().equals("full")) {
-                                        out.println("<a class=\"\" href=\"state?postNum=" + post.getPostNum() + "&toState=ordering\">모집 종료</a>");// @@
+                                        out.println("<a class=\"btn btn-primary pull-right\" href=\"state?postNum=" + post.getPostNum() + "&toState=ordering\">모집 종료</a>");// @@
                                     } else if (post.getState().equals("ordering")) {
-                                        out.print("<a href=\"state?postNum=" + post.getPostNum() + "&take=T\">Take</a>"); // @@
+                                        out.print("<a class=\"btn btn-primary pull-right\" href=\"state?postNum=" + post.getPostNum() + "&take=T\">Take</a>"); // @@
                                     }
-                                    out.println("<a class=\"\" href=\"edit?postNum=" + post.getPostNum() + "\">edit</a>");
-                                    out.print("<a class=\"\" href=\"delete?postNum=" + post.getPostNum() + "\">delete</a>");
+                                    out.println("<a class=\"btn btn-primary pull-right\" href=\"edit?postNum=" + post.getPostNum() + "\">edit</a>");
+                                    out.print("<a class=\"btn btn-primary pull-right\" href=\"delete?postNum=" + post.getPostNum() + "\">delete</a>");
                                 } else { // 글쓴이 외 참가자
                                     if (!post.getState().equals("ordering"))
-                                        out.print("<a href=\"disjoin?postNum=" + post.getPostNum() + "\">disJoin</a>");
+                                        out.print("<a class=\"btn btn-primary pull-right\" href=\"disjoin?postNum=" + post.getPostNum() + "\">disJoin</a>");
                                     else {
-                                        out.print("<a href=\"state?postNum=" + post.getPostNum() + "&take=T\">Take</a>"); // @@
+                                        out.print("<a class=\"btn btn-primary pull-right\" href=\"state?postNum=" + post.getPostNum() + "&take=T\">Take</a>"); // @@
                                     }
                                 }
                                 break;
@@ -175,7 +175,7 @@
                         }
 
                         if (!isJoined && (post.getNumOfParticipants() < post.getLimitOfParticipants())) { // login은 됬으나 join은 되지 않은 넘덜
-                            out.print("<a class=\"\" href=\"join?postNum=" + post.getPostNum() + "\">Join</a>");
+                            out.print("<a class=\"btn btn-primary pull-right\" href=\"join?postNum=" + post.getPostNum() + "\">Join</a>");
                         }
                     }
                 %>
