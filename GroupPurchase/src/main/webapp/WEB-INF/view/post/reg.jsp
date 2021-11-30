@@ -34,6 +34,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="../home">메인</a></li>
 				<li class="active"><a href="../post/list">게시판</a></li>
+				<li><a href="./mylist">참여 내역</a>
 				<li><a href="../chatpage">메시지함</a></li>
 				<li><a href="../receivedReview?studentNum=${loginNum}">리뷰</a><li>
 			</ul>
@@ -76,10 +77,10 @@
     <div class="content-container clearfix">
 
         <main>
-            <h2 class="main title">게시글 등록</h2>
+            <h2 class="main title" style="margin-left:10px;">게시글 등록</h2>
 
             <form method="post" action="reg">
-                <div class="margin-top first">
+                <div class="margin-top first" style="margin-left:10px;">
                     <h3 class="hidden">게시글 입력</h3>
                     <table class="table">
                         <tbody>
@@ -93,11 +94,11 @@
                             <td colspan="4"><input type="text" name="productInfo"></input></td>
                         </tr>
                         <tr>
-                            <label>set limit of participants: </label>
+                            <label style="margin-left:10px;"> 정원 : </label>
                             <select name="limitOfParticipants">
-                                <option value="2">2ppl</option>
-                                <option value="3">3ppl</option>
-                                <option value="4">4ppl</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
                             </select>
                         </tr>
                         </tbody>

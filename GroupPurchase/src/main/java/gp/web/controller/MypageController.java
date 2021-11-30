@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import gp.web.entity.Student;
+import gp.web.service.ReviewService;
 import gp.web.service.StudentService;
 
 @WebServlet("/mypage")
@@ -26,6 +27,8 @@ public class MypageController extends HttpServlet
 		if(session.getAttribute("student") != null)
 			stu = (Student)session.getAttribute("student");
 		
+		
+		
 		if(isLogin == false || stu == null)
 		{
 			req.getSession().setAttribute("messageType", "오류 메시지");
@@ -34,8 +37,11 @@ public class MypageController extends HttpServlet
 		}
 		else
 		{
+			ReviewService rvwServ = new ReviewService();
+			int count = rvwServ.getReviewCount(stu.getStudentNum());
 			req.setAttribute("student", stu);
 			req.setAttribute("isLogin", isLogin);
+			req.setAttribute("count", count);
 			req.getRequestDispatcher("/WEB-INF/view/student/mypage.jsp").forward(req, resp); 
 		}
 	}

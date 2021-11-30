@@ -7,13 +7,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<style>
+	.beakyung {
+	  background-image: url('http://www.kyongbuk.co.kr/news/photo/201212/136379_20121203008.jpg');
+	  background-size: cover;
+	  height: 550px;
+	}
+	</style>
 	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="./css/bootstrap.css">
 	<link rel="stylesheet" href="./css/custom.css">
 	<title>home</title>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script type = "text/javascript" src="./js/bootstrap.js"></script>
+	<script type = "text/javascript" src="./js/bootstrap.js"></script>	
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -31,6 +38,7 @@
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="home">메인</a></li>
 				<li><a href="post/list">게시판</a></li>
+				<li><a href="post/mylist">참여 내역</a>
 				<li><a href="chatpage">메시지함</a></li>
 				<li><a href="receivedReview?studentNum=${loginNum}">리뷰</a><li>
 			</ul>
@@ -68,6 +76,8 @@
 	    	</c:choose>
 		</div>
 	</nav>
+	
+	<div id='beakyung'><div class="beakyung"></div>
 	
 	
 	

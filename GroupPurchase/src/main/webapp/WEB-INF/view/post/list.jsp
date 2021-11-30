@@ -35,6 +35,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="../home">메인</a></li>
 				<li class="active"><a href="../post/list">게시판</a></li>
+				<li><a href="./mylist">참여 내역</a>
 				<li><a href="../chatpage">메시지함</a></li>
 				<li><a href="../receivedReview?studentNum=${loginNum}">리뷰</a><li>
 			</ul>
@@ -80,9 +81,9 @@
 
 
         <main class="main">
-            <h2 class="main title">게시판</h2>
+            <h2 class="main title" style="margin-left:10px;">게시판</h2>
 
-            <div class="search-form margin-top first align-right">
+            <div class="search-form margin-top first align-right" style="margin-left:10px;">
                 <h3 class="hidden">게시글 검색폼</h3>
                 <form class="table-form">
                     <fieldset>
@@ -99,7 +100,7 @@
                 </form>
             </div>
 
-            <div class="notice margin-top">
+            <div class="notice margin-top" style="margin-left:10px; margin-right:10px;">
                 <h3 class="hidden">게시글 목록</h3>
                 <table class="table">
                     <thead>
@@ -145,7 +146,7 @@
 
             <% if (((boolean)session.getAttribute("isLogin"))) { %>
             <div>
-                <a class="btn-text btn-default" href="reg">글쓰기</a>
+                <a class ="btn btn-primary pull-right" style = "margin-right:10px"  href="reg">글쓰기</a>
             </div>
             <% } %>
 
