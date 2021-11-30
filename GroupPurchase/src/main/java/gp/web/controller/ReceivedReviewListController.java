@@ -33,7 +33,8 @@ public class ReceivedReviewListController extends HttpServlet
 		
 		String studentNum = null;
 		
-		studentNum = "201710"; //юс╫ц
+		if(req.getParameter("studentNum") != null)
+			studentNum = req.getParameter("studentNum");
 		
 		if(studentNum == null || studentNum.equals(""))
 		{
@@ -46,9 +47,17 @@ public class ReceivedReviewListController extends HttpServlet
 		StudentService serv = new StudentService();
 		stu = serv.getStudent("studentNum", studentNum);
 		float avg = stu.getCredibility();
+		ReviewService rvwServ = new ReviewService();
+		int count = rvwServ.getReviewCount(studentNum);
+		
+		if(session.getAttribute("loginNum").equals(studentNum))
+		{
+			req.setAttribute("test", true);
+		}
 		
 		req.setAttribute("studentNum", studentNum);
 		req.setAttribute("avg", avg);
+		req.setAttribute("count", count);
 		req.getRequestDispatcher("/WEB-INF/view/review/receivedReviewList.jsp").forward(req, resp); 
 
 	}

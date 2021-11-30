@@ -23,11 +23,11 @@ public class ReviewWriteServlet extends HttpServlet{
 		String strRating = req.getParameter("rating");
 		String comment = req.getParameter("comment");
 		
-		if(writerNum== null || writerNum.equals("") || evaluateeNum== null || evaluateeNum.equals("") || strPostNum== null || strPostNum.equals("") ||strRating== null || strRating.equals("") ||comment== null || comment.equals(""))
+		if(strRating== null || strRating.equals("") ||comment== null || comment.equals(""))
 		{
 			req.getSession().setAttribute("messageType", "오류 메시지");
 			req.getSession().setAttribute("messageContent", "모든 내용을 입력하세요.");
-			resp.sendRedirect("./writeReview");
+			resp.sendRedirect("./writeReview?postNum=" +strPostNum +"&evaluateeNum=" + evaluateeNum);
 			return;
 		}
 		int postNum = Integer.parseInt(strPostNum);
@@ -46,7 +46,7 @@ public class ReviewWriteServlet extends HttpServlet{
 		{
 			req.getSession().setAttribute("messageType", "오류 메시지");
 			req.getSession().setAttribute("messageContent", "리뷰 작성에 실패했습니다.");
-			resp.sendRedirect("./writeReview");
+			resp.sendRedirect("./home");
 		}
 			
 	}

@@ -60,7 +60,9 @@
 		<div class = "collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="home">메인</a></li>
+				<li><a href="post/list">게시판</a></li>
 				<li><a href="chatpage">메시지함</a></li>
+				<li class="active"><a href="receivedReview?studentNum=${loginNum}">리뷰</a><li>
 			</ul>
 			<c:choose>
 				<c:when test="${isLogin}">
@@ -96,11 +98,35 @@
 	    	</c:choose>
 		</div>
 	</nav>
+	<c:choose>
+		<c:when test="${test}">
+			<div class="container">
+				<table class="table table-bordered table-hover" style="text-align: center; border: 1px solid #dddddd; margin: 0 auto;">
+					<thead>
+						<tr>
+							<th colspan = "3"><h4>작성가능한 리뷰</h4></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><h5>갯수</h5></td>
+							<td><h5>${count}</h5></td>
+							<td onclick="location.href ='./reviewlistForWrite'">
+			                     <h5>목록 자세히 보기</h5>
+		                    </td>
+						<tr>					
+					</tbody>
+				</table>
+			</div>
+		</c:when>
+	</c:choose>
+	
+	
 	<div class="container">
 		<table class = "table" style="margin: 0 auto;">
 			<thead>
 				<tr>
-					<th><h4>평균 평점: ${avg}</h4></th>
+					<th><h4>받은 리뷰 평균: ${avg}</h4></th>
 				</tr>
 			</thead>
 			<div style="overflow-y: auto; width: 100%; maxheight: 450px;">

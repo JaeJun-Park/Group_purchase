@@ -50,6 +50,7 @@ public class PostRegController extends HttpServlet {
         service.insertPost(post);
         joinService.setJoin(post.getPostNum(), post.getStudentNum());
         chatService.createChatRoom(post.getPostNum(), post.getPostNum());
+        chatService.participateInChatRoom(post.getPostNum(), post.getStudentNum());
 
         resp.sendRedirect("list");
 

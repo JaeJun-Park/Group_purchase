@@ -217,7 +217,7 @@ public class PostService {
 
     public int insertPost(Post post) {
         int result = 0;
-        String sql = "INSERT into post values(?, ? , ? , ?, ?,? , ?, ?)";
+        String sql = "INSERT into post values(?, ?, ?, ?, TO_DATE(?, 'yyyymmddhh24mi'), ? ,? ,?)";
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 		String strTime = timestampToString(time);
         try {
@@ -315,6 +315,43 @@ public class PostService {
         }
 
         return lastPostNum;
+    }
+    public List<Post> getMyPostList(String studentNum, int page) {
+        List<Post> list = new ArrayList<>();
+        String sql = "SELECT * FROM ( " +
+                "    SELECT ROWNUM NUM, P.* " +
+                "    FROM (SELECT * FROM POST WHERE studentnum LIKE ? ORDER BY DATE_ DESC)   P " +
+                "    ) " +
+                "WHERE NUM BETWEEN ? AND ?";
+
+        try {
+        	connectWithDB();
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, studentNum);
+            st.setInt(2, 1 + (page - 1) * 15);
+            st.setInt(3, page * 15);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                String title = rs.getString(4);
+                Timestamp date = rs.getTimestamp(6);
+                int numOfParticipants = rs.getInt(8);
+                int limitOfParticipants = rs.getInt(9);
+                String productInfo = rs.getString(5);
+                String state = rs.getString(7);
+                int postNum = rs.getInt(2);
+
+                Post post = new Post(postNum, title, date, studentNum, numOfParticipants, limitOfParticipants, productInfo, state);
+                list.add(post);
+            }
+            rs.close();
+            st.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 	public String timestampToString(Timestamp time)
 	{

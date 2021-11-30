@@ -19,7 +19,6 @@
 
 <body>
 
-
 <nav class="navbar navbar-default">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
@@ -82,23 +81,6 @@
         <main class="main">
             <h2 class="main title">게시판</h2>
 
-            <div class="search-form margin-top first align-right">
-                <h3 class="hidden">게시글 검색폼</h3>
-                <form class="table-form">
-                    <fieldset>
-                        <legend class="hidden">게시글 검색 필드</legend>
-                        <label class="hidden">검색분류</label>
-                        <select name="f">
-                            <option ${param.f == "title"?"selected":""} value="title">제목</option>
-                            <option ${param.f == "studentNum"?"selected":""} value="studentNum">작성자</option>
-                        </select>
-                        <label class="hidden">검색어</label>
-                        <input type="text" name="q" value="${param.q}"/>
-                        <input class="btn btn-search" type="submit" value="검색"/>
-                    </fieldset>
-                </form>
-            </div>
-
             <div class="notice margin-top">
                 <h3 class="hidden">게시글 목록</h3>
                 <table class="table">
@@ -143,16 +125,10 @@
                 <div><span class="text-orange text-strong">${(empty param.p)?1:param.p}</span>/ ${lastNum} pages</div>
             </div>
 
-            <% if (((boolean)session.getAttribute("isLogin"))) { %>
-            <div>
-                <a class="btn-text btn-default" href="reg">글쓰기</a>
-            </div>
-            <% } %>
-
             <div class="margin-top align-center pager">
                 <div>
                     <c:if test="${startNum-5 >= 1}">
-                        <a href="?p=${startNum-5}&f=${param.f}&q=${param.q}" class="btn btn-next">이전</a>
+                        <a href="?p=${startNum-5}&f=${param.f}&q=${param.q}" class="btn btn-next">다음</a>
                     </c:if>
                     <c:if test="${startNum-5 < 1}">
                         <span class="btn btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</span>
@@ -171,7 +147,7 @@
                             <a href="?p=${startNum+5}&f=${param.f}&q=${param.q}" class="btn btn-next">다음</a>
                     </c:if>
                     <c:if test="${startNum+5 > lastNum}">
-                        <span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
+                        <span class="btn btn-next" onclick="alert('다음 페이 지가 없습니다.');">다음</span>
                     </c:if>
                 </div>
 

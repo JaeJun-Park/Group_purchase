@@ -12,8 +12,8 @@ import javax.servlet.http.HttpSession;
 import gp.web.entity.Review;
 import gp.web.service.ReviewService;
 
-@WebServlet("/writeReview")
-public class ReviewWriteController extends HttpServlet
+@WebServlet("/reviewlistForWrite")
+public class ReviewListForWriteController extends HttpServlet
 {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,18 +26,12 @@ public class ReviewWriteController extends HttpServlet
 			return;
 		}
 		
-		String writerNum = null;
+		String studentNum = null;
 		if(session.getAttribute("loginNum")!= null)
-			writerNum = (String) session.getAttribute("loginNum");
-		
-		String evaluateeNum = null;
-		String strPostNum = null;
-
-		evaluateeNum = req.getParameter("evaluateeNum");
-		strPostNum = req.getParameter("postNum");
+			studentNum = (String) session.getAttribute("loginNum");	
 		
 		
-		if(evaluateeNum == null || evaluateeNum.equals("") || strPostNum == null || strPostNum.equals("") || strPostNum.equals("0"))
+		if(studentNum == null || studentNum.equals(""))
 		{
 			req.getSession().setAttribute("messageType", "오류 메시지");
 			req.getSession().setAttribute("messageContent", "데이터베이스 오류가 발생했습니다.");
@@ -45,10 +39,8 @@ public class ReviewWriteController extends HttpServlet
 			return;
 		}
 		
-		req.setAttribute("writerNum", writerNum);
-		req.setAttribute("evaluateeNum", evaluateeNum);
-		req.setAttribute("postNum", strPostNum);
-		req.getRequestDispatcher("/WEB-INF/view/review/reviewWrite.jsp").forward(req, resp); 
+		req.setAttribute("studentNum", studentNum);
+		req.getRequestDispatcher("/WEB-INF/view/review/listForWrite.jsp").forward(req, resp); 
 		
 		
 	}

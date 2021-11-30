@@ -48,9 +48,8 @@ public class PostEditController extends HttpServlet {
         post.setNumOfParticipants(prevNumOfParticipants);
         post.setLimitOfParticipants(Integer.parseInt(limitOfParticipants_));
         // need to change possst-service methods
-        service.deletePost(postNum);
 
-        int result = service.insertPost(post);
+        service.updatePost(post);
 
         resp.sendRedirect("list");
 

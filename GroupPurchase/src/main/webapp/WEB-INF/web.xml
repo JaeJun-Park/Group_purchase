@@ -71,4 +71,13 @@
   	<servlet-name>ReviewWriteServlet</servlet-name>
   	<url-pattern>/writingReview</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ReviewListForWriteServlet</servlet-name>
+  	<servlet-class>gp.web.servlet.ReviewListForWriteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ReviewListForWriteServlet</servlet-name>
+  	<url-pattern>/getReviewListForWrite</url-pattern>
+  </servlet-mapping>
 </web-app>
