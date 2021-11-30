@@ -75,48 +75,45 @@
 		</div>
 	</nav>
 <div id="body">
-    <div class="content-container clearfix">
         
         <!-- --------------------------- main --------------------------------------- -->
-        
-        <main>
-            <h2 class="main title">게시글 등록</h2>
-            
-
+     <div class="container">  
+       <main style="text-align:center">
+            <h2 class="main title" style="margin-left:10px;">게시글 수정</h2>
+            <div style="text-align:center">
             <form method="post" action="edit">
-                <div class="margin-top first">
-                    <h3 class="hidden">게시글 입력</h3>
-                    <table class="table">
+                <div style="text-align:center; width:1000px; margin:auto;">
+                    <table class="table table-bordered table-hover" style="text-align: center; border: 1px solid #dddddd">
                         <tbody>
                         <tr>
                             <th>제목</th>
                             <td class="text-align-left text-indent text-strong text-orange" colspan="3">
-                                <input type="text" name="title" value="${post.title}" />
+                                <input type="text" name="title" style="width:1000px" value="${post.title}" />
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="content"style="margin-top: 15px">
                             <th>내용</th>
                             <td class="text-align-left text-inden" colspan="4">
-                                <input type="text"  name="productInfo" value="${post.productInfo}">
+                                <input type="text"  name="productInfo" style="height:50px; width:1000px" value="${post.productInfo}">
                             </td>
                         </tr>
                         <tr>
-                            <label>set limit of participants: </label>
+                            <label>정원: </label>
                             <select name="limitOfParticipants">
                                 <%
                                     Post post = (Post)request.getAttribute("post");
                                     for (int i = post.getNumOfParticipants(); i <= 4; i++) {
                                         if (i == 1) continue;
-                                        out.print("<option value=\""+i+"\">"+i+"ppl</option>");
+                                        out.print("<option value=\""+i+"\">"+i+"</option>");
                                 } %>
                             </select>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="margin-top text-align-center">
-                    <input class="btn-text btn-default" type="submit" value="등록" />
-                    <a class="btn-text btn-cancel" href="list">취소</a>
+                <div class="" style="text-align:right; width:95%; height:">
+                    <input class="btn btn-primary pull-right" type="submit" value="등록" />
+                    <a class="btn btn-primary pull-right" href="list">취소</a>
                 </div>
             </form>
 
