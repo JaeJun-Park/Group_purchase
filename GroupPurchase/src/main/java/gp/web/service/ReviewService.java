@@ -283,9 +283,9 @@ public class ReviewService {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "select count(*) from "
-				+ "(select studentNum from join where postNum = '10' and studentNum != ? "
+				+ "(select studentNum from join where postNum = 101 and studentNum != ? "
 				+ "minus "
-				+ "select evaluateeNum as studentNum from review where postNum = '10' AND writerNum = ?)";
+				+ "select evaluateeNum as studentNum from review where postNum = 101 AND writerNum = ?)";
 		try
 		{
 			connectWithDB();
@@ -315,9 +315,9 @@ public class ReviewService {
 		ArrayList<Review> reviewList =  null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select postNum, studentNum from join where postNum = '10' and studentNum != ? "
+		String sql = "select postNum, studentNum from join where postNum = 101 and studentNum != ? "
 				+ "minus "
-				+ "select postNum, evaluateeNum as studentNum from review where postNum = '10' AND writerNum = ?";
+				+ "select postNum, evaluateeNum as studentNum from review where postNum = 101 AND writerNum = ?";
 		
 		try
 		{

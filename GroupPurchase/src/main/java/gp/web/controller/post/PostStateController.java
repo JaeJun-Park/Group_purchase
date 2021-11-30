@@ -31,25 +31,30 @@ public class PostStateController extends HttpServlet {
         HttpSession session = req.getSession();
         Post post = service.getPost(postNum);
 
-        if (toState != null && toState.equals("ordering")) { // 모집종료
+        if (toState != null && toState.equals("ordering")) { 
             post.setState(toState); // toState = ordering
             //<-- ------ locker allocation ------ --->
             lockerService.allocateLcoker(postNum);
 
         }
 
-        if (take != null && take.equals("T")) { // 모집종료 된 상태에서 물품 수령 표시
+        if (take != null && take.equals("T")) { 
             takeLogService.setTakeLog(postNum, (String) session.getAttribute("loginNum"));
-            // takelogList 받아와서 해당 포스트의 모든 takeLog가 T일때 해당 포스트의 nstate doe으로 변경
+            
             List<TakeLog> takeLogList = takeLogService.getTakeLogList(postNum);
-            toState = "done"; // 거래 완료를 의미
+            toState = "ordering"; // �ŷ� �ϷḦ �ǹ�
+            int num = post.getNumOfParticipants();
+            int count = 0;
             for (TakeLog takeLog : takeLogList) {
-                if (takeLog.isGet().equals("F")) // 아직 물품 수령 못한 맴버있음
-                    toState = "ordering";
+                count++;
+                if (takeLog.isGet().equals("F")) 
+                    break;
+                if (takeLog.isGet().equals("T") && count == num) // ���� ��ǰ ���� ���� �ɹ�����
+                    toState = "done";
             }
             post.setState(toState);
-            if (post.getState().equals("done")) { //거래 진짜 완료
-                lockerService.collectLocker(lockerService.getLockerInfo(postNum).getLockerNum()); // 라커 할당해제
+            if (post.getState().equals("done")) { 
+                lockerService.collectLocker(lockerService.getLockerInfo(postNum).getLockerNum()); 
             }
         }
         service.updatePost(post);

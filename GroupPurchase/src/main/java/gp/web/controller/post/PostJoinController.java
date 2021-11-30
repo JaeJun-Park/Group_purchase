@@ -34,6 +34,6 @@ public class PostJoinController extends HttpServlet {
 
         service.updatePost(post);
 
-        resp.sendRedirect("./detail?roomNum=" + String.valueOf(postNum));
+        resp.sendRedirect("./detail?postNum=" + String.valueOf(postNum));
     }
 }
